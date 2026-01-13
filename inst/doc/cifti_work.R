@@ -1,9 +1,9 @@
-## ----setup, include=FALSE------------------------------------------------
+## ----setup, include=FALSE-----------------------------------------------------
 library(cifti)
 knitr::opts_chunk$set(
   echo = TRUE, cache = FALSE, comment = "")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(gifti)
 library(cifti)
 library(rgl)
@@ -61,7 +61,7 @@ colors <- colorRampPalette(
   ramp_cols
   )(ncol)[ii]
 
-rgl.triangles(left_surf$pointset, color = colors)
+rgl::triangles3d(left_surf$pointset, color = colors)
 
 
 ii <- cut(right$values,
@@ -71,22 +71,22 @@ ii <- cut(right$values,
 # n-1 equally spaced colors
 # colors <- colorRampPalette(
 #   c("red", "blue"))(ncol)[ii]
-rgl.triangles(right_surf$pointset, color = colors)
+rgl::triangles3d(right_surf$pointset, color = colors)
 
 
 # rgl.close()
 
-## ------------------------------------------------------------------------
-rgl.open()
+## -----------------------------------------------------------------------------
+rgl::open3d()
 
-rgl.triangles(left_surf$pointset, color = colors)
+rgl::triangles3d(left_surf$pointset, color = colors)
 
 left_mid = colMeans(left_surf$pointset)
 left_ranges = colRanges(left_surf$pointset)
 size_left = rowDiffs(left_ranges)
 left_text = left_mid
 left_text[3] = left_ranges[3,2] + size_left[3]/4
-rgl.texts(x = left_text, text = "Left")
+rgl::texts3d(x = left_text, text = "Left")
 
 
 
@@ -99,8 +99,8 @@ right_mid = colMeans(right_surf$pointset)
 right_text = right_mid
 right_text[3] =  left_text[3]
 
-rgl.triangles(right_surf$pointset, color = colors)
-rgl.texts(x = right_text, text = "Right")
-rgl.viewpoint(0, -70)
+rgl::triangles3d(right_surf$pointset, color = colors)
+rgl::texts3d(x = right_text, text = "Right")
+rgl::view3d(0, -70)
 play3d(spin3d(), duration = 3)
 
